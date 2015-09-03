@@ -1,0 +1,7 @@
+$('#star').raty({
+  readOnly: true,
+  score: <%= @juice.average %>,
+  path: '/assets'
+});
+
+$('#stats').text("<%= escape_javascript(render(partial: 'stats', locals: { juice: @juice })) %>");

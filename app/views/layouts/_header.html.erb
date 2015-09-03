@@ -1,0 +1,37 @@
+<nav class="navbar navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="<%= root_url %>">Juice Recipes</a>
+    </div>
+    <%= form_tag search_path, method: 'get', 'class' => 'navbar-form navbar-right', 'role' => 'search' do %>
+      <div class="input-group">
+        <input type="search" class="form-control" name="q" value="<%= params[:q] %>" id="q" autofocus="autofocus" size="40" placeholder="search by title or ingredient..." tabindex="0" />
+        <div class="input-group-btn">
+          <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</nav>
+
+<script>
+$.widget( "custom.suggest", $.ui.autocomplete, {
+  _renderMenu: function( ul, items ) {
+    $.each( items, function( index, item ) {
+      var category = ul.append( "<li class='ui-autocomplete-category'>" + item.label + "</li>" );
+      $.each( item.value, function( index, item ) {
+        var li = $('<li class="ui-autocomplete-item"><a href="<%= Rails.application.config.relative_url_root %>'+ item.payload.url +'">'+ item.text +'</a></li>').data('ui-autocomplete-item', item )
+          category.append(li)
+      } )
+    });
+  }
+});
+
+$( "#q" ).suggest({
+  source: '<%= suggest_path %>',
+  select: function(event, ui) {
+    document.location.href = '<%= Rails.application.config.relative_url_root %>'+ui.item.payload.url
+  }
+});
+</script>
+

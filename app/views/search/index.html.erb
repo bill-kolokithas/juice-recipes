@@ -1,0 +1,25 @@
+<div class="btn-group pull-right">
+  <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown">
+    sorted by <%= params.key?(:sort) ? params[:sort] : 'relevance' %> <span class="caret"></span>
+  </button>
+
+  <ul class="dropdown-menu" role="menu">
+    <% if params.key?(:sort) %>
+      <li> <%= link_to 'relevance', @params, class: 'btn-xs' %> </li>
+    <% end %>
+    <% if !params.key?(:sort) || params[:sort] == 'combined' %>
+      <li> <%= link_to 'score', @params.merge(sort: 'score'), class: 'btn-xs' %> </li>
+    <% end %>
+    <% if !params.key?(:sort) || params[:sort] == 'score' %>
+      <li> <%= link_to 'combined', @params.merge(sort: 'combined'), class: 'btn-xs' %> </li>
+    <% end %>
+  </ul>
+</div>
+
+<div class="row juices">
+  <section id="pinBoot">
+    <%= render partial: "juices/juice", collection: @juices %>
+  </section>
+</div>
+
+<%= render partial: 'shared/pagination', locals: { page: params[:page].to_i, total_results: @juices.total } %>

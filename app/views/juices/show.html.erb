@@ -1,0 +1,43 @@
+<div class="text-center">
+  <h1> <%= @juice.name %> </h1>
+
+  <div id="star"></div>
+  <div id="stats">
+    <%= render 'stats', juice: @juice %>
+  </div>
+
+  <%= image_tag @juice.photo %>
+</div>
+
+<div class="row">
+  <div class="col-md-offset-4 col-md-4">
+    <h2> Ingredients </h2>
+    <ul>
+      <% @juice.ingredients.each do |ingredient| %>
+        <li> <%= ingredient %> </li>
+      <% end %>
+    </ul>
+
+    <h2> Tags </h2>
+    <ul>
+      <% @juice.tags.each do |tag| %>
+        <li> <%= tag %> </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<script>
+$('#star').raty({
+  score: <%= @juice.average %>,
+  path: '/assets',
+  click: function(rating, evt) {
+    $.ajax({
+      url: '<%= juice_path(@juice) %>',
+      type: 'PATCH',
+      dataType: 'script',
+      data: { juice: { rating: rating } }
+    });
+  }
+});
+</script>
