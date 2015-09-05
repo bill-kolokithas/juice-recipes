@@ -1,7 +1,5 @@
 source 'https://rubygems.org'
 
-ruby '2.2.3'
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
 # Use SCSS for stylesheets
@@ -47,3 +45,4 @@ end
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 gem "elasticsearch-persistence", require: 'elasticsearch/persistence/model'
+gem 'puma', group: :production

@@ -90,7 +90,7 @@ h1 {
 }
 
 h2 {
-	font-size: 1.2em;
+	font-size: 1.4em;
 	letter-spacing: -1px;
 	margin-bottom: 30px;
 	text-align: center;
@@ -184,3 +184,10 @@ input {
 		color: $state-danger-text;
 	}
 }
+
+.navbar-custom {
+    background-color:#eee;
+    color:#ffffff;
+    border-radius:0;
+}
+

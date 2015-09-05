@@ -7,6 +7,7 @@ namespace :recipes do
     data['results'].each do |recipe|
       name = recipe['collection1'][0]['property1']['text']
       photo = recipe['collection1'][0].fetch('property2', {})['src']
+      photo = File.basename(photo) if photo
 
       tags = recipe['collection1'][0]['property5']['text']
       tags = tags[6..-1].split(', ') unless tags.nil?
