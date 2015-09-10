@@ -156,7 +156,6 @@ footer {
 	@include box_sizing;
 }
 
-
 /* forms */
 
 input, textarea, select, .uneditable-input {
@@ -186,8 +185,57 @@ input {
 }
 
 .navbar-custom {
-    background-color:#eee;
-    color:#ffffff;
-    border-radius:0;
+	background-color:#eee;
+	color:#ffffff;
+	border-radius:0;
 }
 
+small.badge {
+	font-size: 80% !important;
+	font-weight: normal !important;
+	display: inline-block;
+	float: right;
+}
+
+#aggregations {
+	margin-top: 27px;
+	.panel-heading {
+		margin-bottom: 0;
+	}
+}
+
+#dropdowns.row {
+	position: relative;
+	top: 20px;
+}
+
+.dropdown-menu-button {
+	margin-right: 25px;;
+	margin-bottom: -25px;
+}
+
+.dropdown-menu {
+	top: 35px;
+	left: auto;
+	right: auto;
+	bottom: auto;
+}
+
+#clear-text {
+	padding-left: 20px;
+}
+
+#clear-text2 {
+	padding-right: 5px;
+}
+
+.all-ingredients {
+	width: 150px;
+	height: auto;
+	max-height: 800px;
+	overflow-x: hidden;
+}
+
+.glyphicon-list {
+	margin-left: 12px;
+}

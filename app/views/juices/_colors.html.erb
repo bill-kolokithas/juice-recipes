@@ -1,0 +1,20 @@
+<div class="dropdown col-md-1">
+  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+    <%= params[:color].present? ? params[:color] : 'Color' %>
+    <span class="caret"></span>
+  </button>
+
+  <ul class="dropdown-menu">
+    <li> <%= link_to 'Green',  params.merge(color: 'green') %> </li>
+    <li> <%= link_to 'Orange', params.merge(color: 'orange') %> </li>
+    <li> <%= link_to 'Purple', params.merge(color: 'purple') %> </li>
+    <li> <%= link_to 'Red',    params.merge(color: 'red') %> </li>
+    <li> <%= link_to 'Yellow', params.merge(color: 'yellow') %> </li>
+  </ul>
+</div>
+
+<span id="clear-text">
+<% if params[:color].present? %>
+  <%= link_to ('<small> Clear </small>').html_safe, params.except(:color, :page) %>
+<% end %>
+</span>

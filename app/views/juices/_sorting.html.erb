@@ -1,0 +1,15 @@
+<div class="dropdown pull-right">
+  <button class="btn btn-default btn-xs dropdown-toggle dropdown-menu-button" type="button" data-toggle="dropdown">
+    <% sorted_by_score = params[:sort].present? %>
+    sorted by <%= sorted_by_score ? 'score' : 'relevance' %>
+  <span class="caret"></span>
+  </button>
+
+  <ul class="dropdown-menu">
+    <% if sorted_by_score %>
+      <li> <%= link_to 'relevance', params.except(:sort), class: 'btn-xs' %> </li>
+    <% else %>
+      <li> <%= link_to 'score', params.merge(sort: 'score'), class: 'btn-xs'%> </li>
+    <% end %>
+  </ul>
+</div>

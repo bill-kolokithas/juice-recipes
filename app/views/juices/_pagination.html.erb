@@ -1,0 +1,24 @@
+<div class="row col-md-offset-4">
+  <nav>
+    <ul class="pagination">
+      <% page = params[:page].to_i %>
+
+      <% if page > 1 %>
+        <li> <%= link_to '<< First', safe_params.merge(page: 1) %> </li>
+        <li> <%= link_to '< Prev',   safe_params.merge(page: page - 1) %> </li>
+      <% end %>
+
+      <% last_page = total_results / PER_PAGE %>
+      <% last_page += 1 unless total_results % PER_PAGE == 0 %>
+
+      <% last_page.times do |p| %>
+        <li <%= 'class=active' if page == p + 1 %>> <%= link_to  p + 1, safe_params.merge(page: p + 1) %> </li>
+      <% end %>
+
+      <% if page < last_page %>
+        <li> <%= link_to 'Next >',  safe_params.merge(page: page + 1) %> </li>
+        <li> <%= link_to 'Last >>', safe_params.merge(page: last_page) %> </li>
+      <% end%>
+    </ul>
+  </nav>
+</div>

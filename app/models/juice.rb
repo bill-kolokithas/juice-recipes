@@ -3,6 +3,33 @@ class Juice
   include ActiveModel::Validations::Callbacks
   include Elasticsearch::Persistence::Model
 
+  settings analysis: {
+    analyzer: {
+      whitelist_ingredients: {
+        type: 'custom',
+        tokenizer: 'standard',
+        filter: ['lowercase', 'singularize', 'keep_ingredients']
+      }
+    },
+    filter: {
+      singularize: {
+        type: 'inflections',
+        inflection: 'singularize'
+      },
+      keep_ingredients: {
+        type: 'keep',
+        keep_words_path: 'ingredients.txt'
+      }
+    }
+  }
+
+  analyzed_and_filtered = {
+    fields: {
+      ingredients: { type: 'string', analyzer: 'english' },
+      filtered:    { type: 'string', analyzer: 'whitelist_ingredients' }
+    }
+  }
+
   attr_accessor :rating
   attribute :name, String
   attribute :suggest_name, String, mapping: { type: 'completion', payloads: true }
@@ -11,7 +38,7 @@ class Juice
   attribute :average, Float, mapping: { index: 'no' }
   attribute :score, Float
   attribute :tags, Array[String]
-  attribute :ingredients, Array[String], mapping: { analyzer: 'english' }
+  attribute :ingredients, Array[String], mapping: analyzed_and_filtered
 
   before_validation :calculate_average, if: 'rating'
   before_validation :calculate_score,   if: 'rating || score.nil?'

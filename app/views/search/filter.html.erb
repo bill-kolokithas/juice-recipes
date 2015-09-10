@@ -1,9 +1,0 @@
-<%= render 'shared/colors' %>
-
-<div class="row juices">
-  <section id="pinBoot">
-    <%= render partial: "juices/juice", collection: @juices %>
-  </section>
-</div>
-
-<%= render partial: 'shared/pagination', locals: { page: params[:page].to_i, total_results: @juices.total } %>

@@ -16,7 +16,9 @@ namespace :recipes do
       average = recipe['collection2'][1]['property3']
 
       ingredients = []
-      recipe['collection3'].try(:each) { |ingredient| ingredients << ingredient['property4'] }
+      recipe['collection3'].try(:each) do |ingredient|
+        ingredients << ingredient['property4']
+      end
       next if ingredients[0].class == Hash # catch malformed case
 
       # We could reuse 'new' object and gain speed but 'new_record?' will return false for all records except first

@@ -10,7 +10,9 @@ class Suggester
       body: {
         juices: {
           text: @term,
-          completion: { field: 'suggest_name', size: PER_PAGE, fuzzy: true }
+          completion: {
+            field: 'suggest_name', size: 10, fuzzy: true
+          }
         }
       }
   end

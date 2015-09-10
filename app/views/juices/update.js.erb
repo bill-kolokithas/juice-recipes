@@ -4,4 +4,4 @@ $('#star').raty({
   path: '/assets'
 });
 
-$('#stats').text("<%= escape_javascript(render(partial: 'stats', locals: { juice: @juice })) %>");
+$('#stats').text("<%= escape_javascript(render partial: 'stats', locals: { juice: @juice }) %>");

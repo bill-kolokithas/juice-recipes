@@ -5,9 +5,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
    root 'juices#index'
    resources :juices, only: [:index, :show, :update]
-   get 'search', to: 'search#index'
-   get 'filter', to: 'search#filter'
-   get 'suggest', to: 'search#suggest'
+   get 'suggest', to: 'juices#suggest'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
