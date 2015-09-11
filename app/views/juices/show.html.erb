@@ -18,12 +18,14 @@
       <% end %>
     </ul>
 
-    <h2> Tags </h2>
-    <ul>
-      <% @juice.tags.each do |tag| %>
-        <li> <%= tag %> </li>
-      <% end %>
-    </ul>
+    <% if !@juice.tags.count.zero? %>
+      <h2> Tags </h2>
+      <ul>
+        <% @juice.tags.each do |tag| %>
+          <li> <%= tag %> </li>
+        <% end %>
+      </ul>
+    <% end %>
   </div>
 </div>
 

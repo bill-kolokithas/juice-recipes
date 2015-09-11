@@ -1,4 +1,4 @@
-<div class="row col-md-offset-4">
+<div class="row text-center">
   <nav>
     <ul class="pagination">
       <% page = params[:page].to_i %>
@@ -11,8 +11,19 @@
       <% last_page = total_results / PER_PAGE %>
       <% last_page += 1 unless total_results % PER_PAGE == 0 %>
 
-      <% last_page.times do |p| %>
-        <li <%= 'class=active' if page == p + 1 %>> <%= link_to  p + 1, safe_params.merge(page: p + 1) %> </li>
+      <% range_start = [page - PAGE_RANGE, 1].max %>
+      <% range_end = [page + PAGE_RANGE, last_page].min %>
+
+      <% if page - 1 > PAGE_RANGE %>
+        <li class='disabled'> <span href="#">...</span> </li>
+      <% end %>
+
+      <% (range_start..range_end).each do |p| %>
+        <li <%= 'class=active' if page == p %> > <%= link_to p, safe_params.merge(page: p) %> </li>
+      <% end %>
+
+      <% if last_page - page > PAGE_RANGE %>
+        <li class='disabled'> <span href="#">...</span> </li>
       <% end %>
 
       <% if page < last_page %>

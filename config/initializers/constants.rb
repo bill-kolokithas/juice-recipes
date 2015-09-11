@@ -1,1 +1,2 @@
 PER_PAGE = 12
+PAGE_RANGE = 5

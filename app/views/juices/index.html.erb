@@ -12,7 +12,7 @@
         <% agg_buckets = @juices.response[:aggregations].fetch(:filter_ingredients, @juices.response[:aggregations])[:filtered_ingredients][:buckets] %>
         <% agg_buckets.first(16).each do |bucket| %>
           <%= link_to filter_add_remove(@params.except(:page), bucket[:key]),
-            class: "list-group-item#{' active' if @params[:filter] && @params[:filter].include?(bucket[:key])}" do
+            class: "list-group-item#{' active' if @params[:filter].try(:include?, bucket[:key])}" do
             bucket[:key].titleize.html_safe + content_tag(:small, bucket[:doc_count], class: 'badge').html_safe
           end %>
         <% end %>
@@ -36,7 +36,7 @@
   <div class="list-group all-ingredients">
     <% agg_buckets.drop(16).each do |bucket| %>
       <%= link_to filter_add_remove(@params.except(:page), bucket[:key]),
-        class: "list-group-item#{' active' if @params[:filter] && @params[:filter].include?(bucket[:key])}" do
+        class: "list-group-item#{' active' if @params[:filter].try(:include?, bucket[:key])}" do
         bucket[:key].titleize.html_safe + content_tag(:small, bucket[:doc_count], class: 'badge').html_safe
       end %>
   <% end %>

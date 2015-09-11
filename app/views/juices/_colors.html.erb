@@ -5,11 +5,11 @@
   </button>
 
   <ul class="dropdown-menu">
-    <li> <%= link_to 'Green',  params.merge(color: 'green') %> </li>
-    <li> <%= link_to 'Orange', params.merge(color: 'orange') %> </li>
-    <li> <%= link_to 'Purple', params.merge(color: 'purple') %> </li>
-    <li> <%= link_to 'Red',    params.merge(color: 'red') %> </li>
-    <li> <%= link_to 'Yellow', params.merge(color: 'yellow') %> </li>
+    <li> <%= link_to 'Green',  params.except(:page).merge(color: 'green') %> </li>
+    <li> <%= link_to 'Orange', params.except(:page).merge(color: 'orange') %> </li>
+    <li> <%= link_to 'Purple', params.except(:page).merge(color: 'purple') %> </li>
+    <li> <%= link_to 'Red',    params.except(:page).merge(color: 'red') %> </li>
+    <li> <%= link_to 'Yellow', params.except(:page).merge(color: 'yellow') %> </li>
   </ul>
 </div>
 

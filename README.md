@@ -1,4 +1,4 @@
-# Juice Recipes [WORK IN PROGRESS]
+# Juice Recipes
 
 ##### A demo site to index and search juice recipes scrapped off the web.
 

@@ -37,8 +37,8 @@ class Juice
   attribute :votes, Integer, mapping: { index: 'no' }
   attribute :average, Float, mapping: { index: 'no' }
   attribute :score, Float
-  attribute :tags, Array[String]
   attribute :ingredients, Array[String], mapping: analyzed_and_filtered
+  attribute :tags, Array[String]
 
   before_validation :calculate_average, if: 'rating'
   before_validation :calculate_score,   if: 'rating || score.nil?'

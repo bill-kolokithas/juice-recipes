@@ -4,22 +4,25 @@ namespace :recipes do
     id = errors = 0
     data = JSON.parse(File.read(args.filename))
 
-    data['results'].each do |recipe|
-      name = recipe['collection1'][0]['property1']['text']
-      photo = recipe['collection1'][0].fetch('property2', {})['src']
-      photo = File.basename(photo) if photo
+    data.each do |recipe|
+      next if !recipe['collection1'].present?
+      name = recipe['collection1'].first['name']
 
-      tags = recipe['collection1'][0]['property5']['text']
-      tags = tags[6..-1].split(', ') unless tags.nil?
+      next if !recipe['collection2'].present?
+      photo = recipe['collection2'].first['image']
+      photo = File.basename(photo)
 
-      votes = recipe['collection2'][0]['property3']
-      average = recipe['collection2'][1]['property3']
+      next if !recipe['collection3'].present?
+      votes = recipe['collection3'].first['rating']
+      average = recipe['collection3'].second['rating']
 
-      ingredients = []
-      recipe['collection3'].try(:each) do |ingredient|
-        ingredients << ingredient['property4']
-      end
-      next if ingredients[0].class == Hash # catch malformed case
+      next if !recipe['collection4'].present?
+      ingredients = recipe['collection4'].map { |ingredient| ingredient['ingredients'] }
+      next if ingredients.first.class == Hash # catch malformed case
+
+      next if !recipe['collection5'].present?
+      tags = recipe['collection5'].first['tags']
+      tags = tags.split(', ')
 
       # We could reuse 'new' object and gain speed but 'new_record?' will return false for all records except first
       new = Juice.new
@@ -33,8 +36,8 @@ namespace :recipes do
       new.photo = photo
       new.votes = votes
       new.average = average
-      new.tags = tags
       new.ingredients = ingredients
+      new.tags = tags
 
       unless new.save
         errors += 1
