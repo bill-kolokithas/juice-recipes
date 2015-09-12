@@ -72,6 +72,12 @@ class JuicesController < ApplicationController
     end
 
     @juices = Juice.search request
+    if @juices.empty?
+      render layout: true, inline:
+        '<div class="text-center">
+           <h4> No results found </h4>
+         </div>'
+    end
   end
 
   def show

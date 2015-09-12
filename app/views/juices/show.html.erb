@@ -20,7 +20,7 @@
       <% end %>
     </ul>
 
-    <% if !@juice.tags.count.zero? %>
+    <% if !@juice.tags.empty? %>
       <h2> Tags </h2>
       <ul>
         <% @juice.tags.each do |tag| %>
