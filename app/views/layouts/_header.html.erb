@@ -1,23 +1,23 @@
-<nav class="navbar navbar-fixed-top navbar-custom" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="<%= root_url %>">Juice Recipes</a>
-    </div>
-    <%= form_tag juices_path, method: 'get', class: 'navbar-form navbar-right', role: 'search' do %>
-      <span id="clear-text2">
-        <% if params[:q].present? %>
-          <%= link_to ('<small> Clear </small>').html_safe, params.except(:q, :page) %>
-        <% end %>
-      </span>
-      <div class="input-group">
-        <input type="search" class="form-control" name="q" value="<%= params[:q] %>" id="q" autofocus="autofocus" size="40" placeholder="search by title or ingredient..." tabindex="0" />
-        <div class="input-group-btn">
-          <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-        </div>
-      </div>
-    <% end %>
+<div class="container logo-search">
+  <div>
+    <%= link_to image_tag('logo.png'), root_url %>
   </div>
-</nav>
+
+  <%= form_tag juices_path, method: 'get', class: 'navbar-form', role: 'search' do %>
+    <div class="input-group search-bar">
+      <input type="search" class="form-control" name="q" value="<%= params[:q] %>" id="q" autofocus="autofocus" size="55" placeholder="search by juice title or ingredient..." tabindex="0" />
+      <div class="input-group-btn">
+        <button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+      </div>
+    </div>
+    <div id="clear-text2">
+      <% if params[:q].present? %>
+        <%= link_to ('<small> Clear </small>').html_safe, params.except(:q, :page) %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
 
 <script>
 $.widget("custom.suggest", $.ui.autocomplete, {

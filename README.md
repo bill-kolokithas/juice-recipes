@@ -10,7 +10,7 @@ Unfortunately this means losing some functionality of Elasticsearch::Model like 
 - Custom rake task for importing data from .json
 - Custom pagination since neither kaminari nor will_paginate works
 - Score using [Wilson lower bound](http://www.evanmiller.org/how-not-to-sort-by-average-rating.html) modified for a 5-star rating system
-- 5-star rating using ajax to recalculate score instantly
+- 5-star rating using [Raty](http://wbotelhos.com/raty) and ajax to recalculate score instantly
 - Sorting by combining relevancy and score using elastic's function_score
 - Auto completion with fuzziness using jquery-ui-autocomplete module
 - Search through ingredients using the english analyzer
@@ -24,5 +24,5 @@ Unfortunately this means losing some functionality of Elasticsearch::Model like 
 - Integrate opencv in an admin panel that requires confirmation before applying found color
 - Use session for ratings and highlighting
 - Testing
-- Better design (i suck at it)
+- Better design
 - More...
