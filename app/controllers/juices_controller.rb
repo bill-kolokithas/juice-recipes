@@ -4,6 +4,7 @@ class JuicesController < ApplicationController
   end
 
   def index
+    session[:init] = true
     @params = params.permit(:q, :color, :page, :sort, :filter, filter: [])
 
     filters = []
@@ -37,13 +38,26 @@ class JuicesController < ApplicationController
       }
     }
 
-    function_score = {
+    combined_score = {
       query: {
         function_score: {
           field_value_factor: { field: 'score' },
           boost_mode: 'sum'
         }.merge(query)
       }
+    }
+
+    random_score = {
+      query: {
+        function_score: {
+          random_score: { seed: session.id },
+          boost_mode: 'replace'
+        }
+      }
+    }
+
+    sort_score = {
+      sort: { score: 'desc' }
     }
 
     query_filter = {
@@ -54,24 +68,14 @@ class JuicesController < ApplicationController
               must: filters
             }
           }
-        }.merge(@params[:q].present? ? (@params[:sort].present? ? function_score : query) : {})
+        }.merge(query_plan(combined_score, query, random_score))
       }
     }
 
-    #TODO refactor the conditional mess a bit
-
-    request = pagination(@params[:page]).merge(aggregation_terms)
-
-    if @params[:filter].present? || @params[:color].present?
-      request.merge!(query_filter)
-    elsif @params[:q].present?
-      request.merge!(@params[:sort].present? ? function_score : query)
-    end
-    if @params[:sort].present? && !@params[:q].present?
-      request.merge!(sort: { score: 'desc' })
-    end
-
+    request = paginate(@params[:page]).merge(aggregation_terms).merge!(query_filter)
+    request.merge!(sort_score) if @params[:sort].present? && !@params[:q].present?
     @juices = Juice.search request
+
     if @juices.empty?
       render layout: true, inline:
         '<div class="text-center">
@@ -99,9 +103,23 @@ class JuicesController < ApplicationController
 
   private
 
-  def pagination(page)
+  def paginate(page)
     page = page.to_i
     page = params[:page] = 1 if page < 1
     { size: PER_PAGE, from: PER_PAGE * (page - 1) }
+  end
+
+  def query_plan(combined_score, query, random_score)
+    if params[:q].present?
+      if params[:sort].present?
+        combined_score
+      else
+        query
+      end
+    elsif !params[:sort].present?
+      random_score
+    else
+      {}
+    end
   end
 end

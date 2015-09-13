@@ -1,6 +1,6 @@
 <div class="dropdown pull-right">
   <% sorted_name =   params[:q].present? ? 'popularity' : 'score' %>
-  <% unsorted_name = params[:q].present? ? 'relevance' :  'default' %>
+  <% unsorted_name = params[:q].present? ? 'relevance' :  'random' %>
 
   <button class="btn btn-default btn-xs dropdown-toggle dropdown-menu-button" type="button" data-toggle="dropdown">
     sorted by <%= params[:sort].present? ? sorted_name : unsorted_name %>

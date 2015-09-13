@@ -11,7 +11,7 @@ Unfortunately this means losing some functionality of Elasticsearch::Model like 
 - Custom pagination since neither kaminari nor will_paginate works
 - Score using [Wilson lower bound](http://www.evanmiller.org/how-not-to-sort-by-average-rating.html) modified for a 5-star rating system
 - 5-star rating using [Raty](http://wbotelhos.com/raty) and ajax to recalculate score instantly
-- Sorting by combining relevancy and score using elastic's function_score
+- Use elastic's function_score to sort randomly (the seed changes after 5 mins of idling) or by combining relevancy and score
 - Auto completion with fuzziness using jquery-ui-autocomplete module
 - Search through ingredients using the english analyzer
 - Filter by juice color
