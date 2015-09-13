@@ -35,6 +35,7 @@
 $('#star').raty({
   score: <%= @juice.average %>,
   path: '/assets',
+  readOnly: <%= session[:voted].try(:include?, @juice.id) ? true : false %>,
   click: function(rating, evt) {
     $.ajax({
       url: '<%= juice_path(@juice) %>',

@@ -89,12 +89,17 @@ class JuicesController < ApplicationController
   end
 
   def update
+    session[:voted] ||= []
     params.require(:juice)
     @juice = Juice.find(params[:id])
     @juice.rating = params[:juice][:rating].to_i
     @juice.votes += 1
 
-    render nothing: true unless @juice.save
+    if @juice.save
+      session[:voted] << @juice.id
+    else
+      render nothing: true
+    end
   end
 
   def suggest
