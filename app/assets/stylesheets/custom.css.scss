@@ -21,6 +21,11 @@ textarea {
 	resize: vertical;
 }
 
+mark {
+    background-color: yellow;
+    color: black;
+}
+
 .center {
 	text-align: center;
 	h1 {
@@ -236,3 +241,4 @@ small.badge {
 	padding-top: 4px;
 	padding-left: 4px;
 }
+

@@ -5,7 +5,7 @@
 
   <%= form_tag juices_path, method: 'get', class: 'navbar-form', role: 'search', enforce_utf8: false do %>
     <div class="input-group search-bar">
-      <input type="search" class="form-control" name="q" value="<%= params[:q] %>" id="q" autofocus="autofocus" size="55" placeholder="search by juice title or ingredient..." tabindex="0" />
+      <input type="search" class="form-control" name="q" value="<%= params[:q] %>" id="q" autofocus="autofocus" size="55" placeholder="search by juice title, ingredients or tags..." tabindex="0" />
       <div class="input-group-btn">
         <button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-search"></i></button>
       </div>
@@ -17,7 +17,6 @@
     </div>
   <% end %>
 </div>
-
 
 <script>
 $.widget("custom.suggest", $.ui.autocomplete, {
@@ -39,4 +38,3 @@ $("#q").suggest({
   }
 });
 </script>
-

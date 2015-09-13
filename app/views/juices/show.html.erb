@@ -15,8 +15,8 @@
   <div class="col-md-offset-4 col-md-4">
     <h2> Ingredients </h2>
     <ul>
-      <% @juice.ingredients.each do |ingredient| %>
-        <li> <%= ingredient %> </li>
+      <% merge_highlighted_ingredients(@juice).each do |ingredient| %>
+        <li> <%= ingredient.html_safe %> </li>
       <% end %>
     </ul>
 

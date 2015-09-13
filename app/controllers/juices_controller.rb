@@ -4,7 +4,7 @@ class JuicesController < ApplicationController
   end
 
   def index
-    session[:init] = true
+    session[:highlight] = {}
     @params = params.permit(:q, :color, :page, :sort, :filter, filter: [])
 
     filters = []
@@ -15,7 +15,7 @@ class JuicesController < ApplicationController
     end
 
     if @params[:color].present?
-      filters << { term: { tags: @params[:color] } }
+      filters << { term: { 'tags.raw': @params[:color] } }
     end
 
     aggregation_terms = {
@@ -33,7 +33,7 @@ class JuicesController < ApplicationController
       query: {
         multi_match: {
           query: @params[:q],
-          fields: [ 'name', 'ingredients' ]
+          fields: [ 'name^10', 'ingredients^5', 'tags']
         }
       }
     }
@@ -56,10 +56,6 @@ class JuicesController < ApplicationController
       }
     }
 
-    sort_score = {
-      sort: { score: 'desc' }
-    }
-
     query_filter = {
       query: {
         filtered: {
@@ -72,10 +68,28 @@ class JuicesController < ApplicationController
       }
     }
 
-    request = paginate(@params[:page]).merge(aggregation_terms).merge!(query_filter)
-    request.merge!(sort_score) if @params[:sort].present? && !@params[:q].present?
-    @juices = Juice.search request
+    sort_score = {
+      sort: { score: 'desc' }
+    }
 
+    highlight = {
+      highlight: {
+        pre_tags: ['<mark>'],
+        post_tags: ['</mark>'],
+        fields: {
+          ingredients: { number_of_fragments: 3 }
+        }
+      }
+    }
+
+    request = paginate(@params[:page]).merge(aggregation_terms).merge!(query_filter)
+    if @params[:q].present?
+      request.merge!(highlight)
+    elsif @params[:sort].present?
+      request.merge!(sort_score)
+    end
+
+    @juices = Juice.search request
     if @juices.empty?
       render layout: true, inline:
         '<div class="text-center">
@@ -103,6 +117,8 @@ class JuicesController < ApplicationController
   end
 
   def suggest
+    # Stop ajax autocompletion from sending a new cookie
+    request.session_options[:skip] = true
     render json: Suggester.new(params)
   end
 

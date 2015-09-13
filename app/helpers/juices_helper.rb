@@ -8,4 +8,14 @@ module JuicesHelper
       end
     end
   end
+
+  def merge_highlighted_ingredients(juice)
+    if session[:highlight].try(:[], juice.id)
+      session[:highlight][juice.id].each do |ingredient|
+        idx = juice.ingredients.index(strip_tags(ingredient))
+        juice.ingredients[idx] = ingredient
+      end
+    end
+    juice.ingredients
+  end
 end

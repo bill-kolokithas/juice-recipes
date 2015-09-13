@@ -1,3 +1,7 @@
 <article class="white-panel" >
   <a href="<%= juice_path(juice) %>"> <h2> <%= juice.name %> </h2> <%= image_tag(juice.photo) %> </a>
 </article>
+
+<% if juice.hit.try(:highlight).try(:ingredients) %>
+  <% session[:highlight][juice.id] = juice.hit.highlight.ingredients %>
+<% end %>
