@@ -11,7 +11,7 @@
     <% if params[:sort].present? %>
       <li> <%= link_to unsorted_name.capitalize, params.except(:sort), class: 'btn-xs' %> </li>
     <% else %>
-      <li> <%= link_to sorted_name.capitalize, params.merge(sort: 'score'), class: 'btn-xs'%> </li>
+      <li> <%= link_to sorted_name.capitalize, params.merge(sort: true), class: 'btn-xs'%> </li>
     <% end %>
   </ul>
 </div>

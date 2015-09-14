@@ -11,18 +11,25 @@ Unfortunately this means losing some functionality of Elasticsearch::Model like 
 - Custom pagination since neither kaminari nor will_paginate works
 - Score using [Wilson lower bound](http://www.evanmiller.org/how-not-to-sort-by-average-rating.html) modified for a 5-star rating system
 - 5-star rating using [Raty](http://wbotelhos.com/raty) and ajax to recalculate score instantly
-- Use elastic's function_score to sort randomly (the seed changes after 5 mins of idling) or by combining relevancy and score
-- Auto completion with fuzziness using jquery-ui-autocomplete module
-- Search through ingredients using the english analyzer
+- 4 different sorting methods depending if there is a query or not
+  - Randomly to improve juice discoverability
+  - By the custom score calculated using Wilson lower bound
+  - By elastic's relevance
+  - By combining the two above plus some extra boosts & factors
+- Auto complete juice titles with fuzziness using jquery-ui-autocomplete module
+- Search through ingredients & tags using the english analyzer
 - Filter by juice color
 - Filter by ingredient using aggregations in the sidebar
-- Custom analyzer using my own [token filter plugin](https://github.com/freestyl3r/elasticsearch-inflections-token-filter) to singularize and only keep ingredients from a whitelist in a subfield
+- Combine juice color, ingredient filter, query and sort at the same time
+- Use sessions to uniquely seed the random sorting for each user, keep track of his votes and highlight juice ingredients that matched the query
+- Sessions auto-expire after a few minutes of not using the site but highlighting also resets when the juice listing changes
+- Custom analyzer using my own [token filter plugin](https://github.com/freestyl3r/elasticsearch-inflections-token-filter) to singularize and only keep whitelisted ingredients in a subfield
 - Identify juice color by using [opencv and scikit-learn's k-means algorithm](http://www.pyimagesearch.com/2014/05/26/opencv-python-k-means-color-clustering/) to find the main color in the picture and then calculate the color difference between juice colors using [delta e equations](http://python-colormath.readthedocs.org/en/latest/delta_e.html) (not yet integrated)
 
 ##### What's missing
 
 - Integrate opencv in an admin panel that requires confirmation before applying found color
-- Use session for ratings and highlighting
+- Design not responsive enough for smaller screens and tablets
+- While highlighting on tags as well is trivial, the cookie limit of 4kb is exceeded. We could overcome this limitation using memcached / redis as a cache-store.
 - Testing
-- Better design
 - More...
