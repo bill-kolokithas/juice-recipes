@@ -30,7 +30,8 @@ module QueryPlanner
         pre_tags: ['<mark>'],
         post_tags: ['</mark>'],
         fields: {
-          ingredients: { number_of_fragments: 3 }
+          ingredients: { number_of_fragments: 0 },
+          tags:        { number_of_fragments: 0 }
         }
       }
     }
@@ -40,8 +41,8 @@ module QueryPlanner
         multi_match: {
           query: params[:q],
           fields: [
-            'name^10',
-            'ingredients^5',
+            'name^5',
+            'ingredients^10',
             'tags'
           ]
         }

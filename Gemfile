@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.1'
+gem 'rails', '~> 4.2.1'
 # Use SCSS for stylesheets
 gem 'bootstrap-sass'
 gem 'sass-rails', '~> 5.0'
@@ -45,3 +45,4 @@ gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 gem "elasticsearch-persistence", require: 'elasticsearch/persistence/model'
 gem 'puma', group: :production
+gem 'redis-session-store'

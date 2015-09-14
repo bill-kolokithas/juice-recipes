@@ -24,7 +24,7 @@ class Juice
   }
 
   attr_accessor :rating
-  attribute :name, String
+  attribute :name, String, mapping: { analyzer: 'english' }
   attribute :suggest_name, String, mapping: {
     type: 'completion', payloads: true
   }

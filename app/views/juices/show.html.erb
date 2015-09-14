@@ -15,7 +15,7 @@
   <div class="col-md-offset-4 col-md-4">
     <h2> Ingredients </h2>
     <ul>
-      <% merge_highlighted_ingredients(@juice).each do |ingredient| %>
+      <% merge_highlighted_results(@juice, :ingredients).each do |ingredient| %>
         <li> <%= ingredient.html_safe %> </li>
       <% end %>
     </ul>
@@ -23,8 +23,8 @@
     <% if !@juice.tags.empty? %>
       <h2> Tags </h2>
       <ul>
-        <% @juice.tags.each do |tag| %>
-          <li> <%= tag %> </li>
+        <% merge_highlighted_results(@juice, :tags).each do |tag| %>
+          <li> <%= tag.html_safe %> </li>
         <% end %>
       </ul>
     <% end %>

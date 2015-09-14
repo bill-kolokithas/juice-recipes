@@ -6,9 +6,11 @@ class JuicesController < ApplicationController
   end
 
   def index
-    session[:highlight] = {}  # clear highlighting
-    @params = params.permit(:q, :color, :page, :sort, :filter, filter: [])
+    # Clear highlighting
+    session[:ingredients] = {}
+    session[:tags] = {}
 
+    @params = params.permit(:q, :color, :page, :sort, :filter, filter: [])
     @juices = Juice.search query_planner(@params)
 
     if @juices.empty?

@@ -3,5 +3,9 @@
 </article>
 
 <% if juice.hit.try(:highlight).try(:ingredients) %>
-  <% session[:highlight][juice.id] = juice.hit.highlight.ingredients %>
+  <% session[:ingredients][juice.id] = juice.hit.highlight.ingredients %>
+<% end %>
+
+<% if juice.hit.try(:highlight).try(:tags) %>
+  <% session[:tags][juice.id] = juice.hit.highlight.tags %>
 <% end %>

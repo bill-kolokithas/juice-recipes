@@ -9,13 +9,13 @@ module JuicesHelper
     end
   end
 
-  def merge_highlighted_ingredients(juice)
-    if session[:highlight].try(:[], juice.id)
-      session[:highlight][juice.id].each do |ingredient|
-        idx = juice.ingredients.index(strip_tags(ingredient))
-        juice.ingredients[idx] = ingredient
+  def merge_highlighted_results(juice, term)
+    if session[term].try(:[], juice.id)
+      session[term][juice.id].each do |item|
+        idx = juice.send(term).index(strip_tags(item))
+        juice.send(term)[idx] = item unless idx.nil?
       end
     end
-    juice.ingredients
+    juice.send(term)
   end
 end
