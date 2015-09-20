@@ -11,9 +11,10 @@ module JuicesHelper
 
   def merge_highlighted_results(juice, term)
     if session[term].try(:[], juice.id)
-      session[term][juice.id].each do |item|
-        idx = juice.send(term).index(strip_tags(item))
-        juice.send(term)[idx] = item unless idx.nil?
+      session[term][juice.id].each do |highlighted|
+        juice.send(term).map! do |original|
+          original == strip_tags(highlighted) ? highlighted : original
+        end
       end
     end
     juice.send(term)
