@@ -24,7 +24,6 @@ Unfortunately this means losing some functionality of Elasticsearch::Model like 
 - Use sessions to uniquely seed the random sorting for each user, keep track of his votes and highlight juice ingredients & tags that matched the query
 - Sessions auto-expire after a few minutes of not using the site but highlighting also resets when the juice listing changes (visiting any other page than a juice view)
 - Sessions use [redis](https://github.com/roidrage/redis-session-store) for storage in order for the highlighting feature to work, since it was exceeding the 4kb limit of cookies.  
-- While highlighting on tags as well is trivial, the cookie limit of 4kb is exceeded. We could overcome this limitation using memcached / redis as a cache-store.
 - Custom analyzer using my own [token filter plugin](https://github.com/freestyl3r/elasticsearch-inflections-token-filter) to singularize and only keep whitelisted ingredients in a subfield
 - Identify juice color by using [opencv and scikit-learn's k-means algorithm](http://www.pyimagesearch.com/2014/05/26/opencv-python-k-means-color-clustering/) to find the main color in the picture and then calculate the color difference between juice colors using [delta e equations](http://python-colormath.readthedocs.org/en/latest/delta_e.html) (not yet integrated)
 
