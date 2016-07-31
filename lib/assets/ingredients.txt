@@ -41,7 +41,6 @@ jicama
 kale
 kiwi
 kiwifruit
-kiwifruit
 leek
 lemon
 lettuce
